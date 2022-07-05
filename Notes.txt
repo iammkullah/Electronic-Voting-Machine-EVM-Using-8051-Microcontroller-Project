@@ -1,0 +1,10 @@
+LCD 
+variable resister 10k
+AT89C51
+crystal
+capicitor (33p)
+register (8.2k
+capicitor (10u)
+switches (7)
+9v (battery)
+wires

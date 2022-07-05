@@ -1,0 +1,3 @@
+".\Objects\mpLabProject.obj" 
+TO ".\Objects\ProjectMPLab" 
+PRINT(".\Listings\ProjectMPLab.m51")

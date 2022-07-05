@@ -1,0 +1,442 @@
+C51 COMPILER V9.60.0.0   MPLABPROJECT                                                      06/10/2022 09:27:19 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MPLABPROJECT
+OBJECT MODULE PLACED IN .\Objects\mpLabProject.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE mpLabProject.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listi
+                    -ngs\mpLabProject.lst) TABS(2) OBJECT(.\Objects\mpLabProject.obj)
+
+line level    source
+
+   1          #include<reg51.h>
+   2          #define msec 50
+   3          #define lcd_data_str_pin P2
+   4          sbit rs = P3^0;                  //Register select (RS) pin rs=0 command mode, rs=1 datamode
+   5          sbit rw = P3^1;                  //Read write(RW) pin rw=0 write mode, rw=1 read mode
+   6          sbit en = P3^6;                  //Enable(EN) pin
+   7          
+   8          
+   9          
+  10          sbit ini_pin = P1^0;               // Start voting pin
+  11          sbit stop_pin = P1^5;            // Stop voting pin
+  12          sbit candidate_1=P1^1;                //Candidate1
+  13          sbit candidate_2=P1^2;              //Candidate2
+  14          sbit candidate_3=P1^3;                //Candidate3
+  15          sbit candidate_4=P1^4;             //Candidate4
+  16          
+  17          
+  18          
+  19          int max = 0;
+  20          int carry = 0;
+  21          int arr[4];             //arry ofsize 4
+  22          
+  23          int vote_amt[3],j;
+  24          unsigned int vote_1,vote_2,vote_3,vote_4;
+  25          
+  26          void delay(int delay_time)                           // Time delay function
+  27          {
+  28   1      
+  29   1      int j,k;
+  30   1      for(j=0;j<=delay_time;j++)
+  31   1      for(k=0;k<=1275;k++);
+  32   1      }
+  33          
+  34          void lcd_cmd(unsigned char cmd_addr)                       //Function to send command to LCD
+  35          {
+  36   1      lcd_data_str_pin = cmd_addr;
+  37   1      en = 1;
+  38   1      rs = 0;
+  39   1      rw = 0;
+  40   1      delay(1);
+  41   1      en = 0;
+  42   1      return;
+  43   1      }
+  44          
+  45          void lcd_data_str(char str[50])                               //Function to send string
+  46          {
+  47   1      int p;
+  48   1      for (p=0;str[p]!='\0';p++)
+  49   1      {
+  50   2      lcd_data_str_pin = str[p];
+  51   2      rw = 0;
+  52   2      rs = 1;
+  53   2      en = 1;
+  54   2      
+C51 COMPILER V9.60.0.0   MPLABPROJECT                                                      06/10/2022 09:27:19 PAGE 2   
+
+  55   2      delay(1);
+  56   2      en = 0;
+  57   2      }
+  58   1      return;
+  59   1      }
+  60          
+  61          void lcd_data_int(unsigned int vote)                        //Function to send 0-9 character values
+  62          {
+  63   1      char dig_ctrl_var;
+  64   1      int p;
+  65   1      for (j=2;j>=0;j--)
+  66   1      {
+  67   2      vote_amt[j]=vote%10;
+  68   2      vote=vote/10;
+  69   2      }
+  70   1      
+  71   1      for (p=0;p<=2;p++)
+  72   1      {
+  73   2      dig_ctrl_var = vote_amt[p]+48;
+  74   2      lcd_data_str_pin = dig_ctrl_var;
+  75   2      rw = 0;
+  76   2      rs = 1;
+  77   2      en = 1;
+  78   2      delay(1);
+  79   2      en = 0;
+  80   2      
+  81   2      }
+  82   1      return;
+  83   1      }
+  84          
+  85          void vote_count()                                               // Function to count votes
+  86          {
+  87   1      while (candidate_1==0 && candidate_2==0 && candidate_3==0 && candidate_4==0);
+  88   1      if (candidate_1==1)
+  89   1      {
+  90   2      while (candidate_1 == 1);
+  91   2      {
+  92   3      vote_1 = vote_1 + 1;
+  93   3      }
+  94   2      }
+  95   1      
+  96   1      if (candidate_2==1)
+  97   1      {
+  98   2      while (candidate_2 == 1);
+  99   2      {
+ 100   3      vote_2 = vote_2 + 1;
+ 101   3      }
+ 102   2      }
+ 103   1      
+ 104   1      if (candidate_3==1)
+ 105   1      {
+ 106   2      while (candidate_3 == 1);
+ 107   2      {
+ 108   3      vote_3 = vote_3 + 1;
+ 109   3      }
+ 110   2      }
+ 111   1      
+ 112   1      if (candidate_4==1)
+ 113   1      {
+ 114   2      while (candidate_4 == 1);
+ 115   2      {
+ 116   3      vote_4 = vote_4 + 1;
+C51 COMPILER V9.60.0.0   MPLABPROJECT                                                      06/10/2022 09:27:19 PAGE 3   
+
+ 117   3      }
+ 118   2      }
+ 119   1      }
+ 120          
+ 121          void lcd_ini()
+ 122          {
+ 123   1      lcd_cmd(0x38);        //5x7 matrix 2 lines
+ 124   1      delay(msec);
+ 125   1      lcd_cmd(0x0E);                  //cursor on  
+ 126   1      delay(msec);
+ 127   1      lcd_cmd(0x01);               //clear screen
+ 128   1      delay(msec);
+ 129   1      lcd_cmd(0x81);                //cursor position to 1st 
+ 130   1      delay(msec);
+ 131   1      lcd_data_str("welcome here");
+ 132   1      delay(100);
+ 133   1      lcd_cmd(0x01);           //clear
+ 134   1      delay(msec);
+ 135   1      lcd_cmd(0x80);             //cursor position to 0 of line 1
+ 136   1      delay(msec);
+ 137   1      lcd_data_str( "you" );
+ 138   1      delay(msec);
+ 139   1      lcd_cmd(0x14);                     //space between         
+ 140   1      delay(msec);
+ 141   1      lcd_data_str("can now");
+ 142   1      delay(msec);
+ 143   1      delay(msec);
+ 144   1      lcd_cmd(0xC0);                 // second line
+ 145   1      delay(msec);
+ 146   1      lcd_data_str("cast your");
+ 147   1      delay(msec);
+ 148   1      lcd_cmd(0x14);                 // space
+ 149   1      delay(msec);
+ 150   1      lcd_data_str("vote");
+ 151   1      delay(100);
+ 152   1      lcd_cmd(0x01);                 //clear lcd
+ 153   1      delay(msec);
+ 154   1      lcd_cmd(0x80);                 //cursor position to 0 of line 1
+ 155   1      delay(msec);
+ 156   1      lcd_data_str("A");
+ 157   1      delay(msec);
+ 158   1      lcd_cmd(0x84);               // 4th col
+ 159   1      delay(msec);
+ 160   1      lcd_data_str("B");
+ 161   1      delay(msec);
+ 162   1      lcd_cmd(0x88);               // 8th col
+ 163   1      delay(msec);
+ 164   1      lcd_data_str("C");
+ 165   1      delay(msec);
+ 166   1      lcd_cmd(0x8C);                 // 12 col
+ 167   1      delay(msec);
+ 168   1      lcd_data_str("D");
+ 169   1      delay(msec);
+ 170   1      vote_count();
+ 171   1      lcd_cmd(0x01);              //clear lcd
+ 172   1      delay(msec);
+ 173   1      lcd_cmd(0x83);             //ist line 3rd col
+ 174   1      delay(msec);
+ 175   1      lcd_data_str("thank");
+ 176   1      delay(msec);
+ 177   1      lcd_cmd(0x14);                 //space
+ 178   1      delay(msec);
+C51 COMPILER V9.60.0.0   MPLABPROJECT                                                      06/10/2022 09:27:19 PAGE 4   
+
+ 179   1      lcd_data_str("you");
+ 180   1      delay(100);
+ 181   1      }
+ 182          
+ 183          void results()                // Function to show results
+ 184          {
+ 185   1      int i;
+ 186   1      carry = 0;
+ 187   1      lcd_cmd(0x01);                           //clear lcd
+ 188   1      delay(msec);
+ 189   1      lcd_cmd(0x80);                           //cursor position to 0 of line 1
+ 190   1      delay(msec);
+ 191   1      lcd_data_str("results");
+ 192   1      delay(msec);
+ 193   1      lcd_cmd(0x14);                        //space
+ 194   1      delay(msec);
+ 195   1      lcd_data_str("are");
+ 196   1      delay(msec);
+ 197   1      lcd_cmd(0x14);                         //space
+ 198   1      delay(msec);
+ 199   1      lcd_data_str("out");
+ 200   1      delay(msec);
+ 201   1      lcd_cmd(0x01);                         //clear lcd
+ 202   1      delay(msec);
+ 203   1      lcd_cmd(0x80);                         //cursor position to 0 of line 1
+ 204   1      delay(msec);
+ 205   1      lcd_data_str("A");
+ 206   1      delay(msec);
+ 207   1      lcd_cmd(0x84);                          //4th col
+ 208   1      delay(msec);
+ 209   1      lcd_data_str("B");
+ 210   1      delay(msec);
+ 211   1      lcd_cmd(0x88);                          // 8th col
+ 212   1      delay(msec);
+ 213   1      lcd_data_str("C");
+ 214   1      delay(msec);
+ 215   1      lcd_cmd(0x8C);                          // 12th col
+ 216   1      delay(msec);
+ 217   1      lcd_data_str("D");
+ 218   1      delay(msec);
+ 219   1      lcd_cmd(0xC0);                    //second line 
+ 220   1      delay(100);
+ 221   1      
+ 222   1      lcd_data_int(vote_1);
+ 223   1      delay(msec);
+ 224   1      lcd_cmd(0xC4);                      //jump to 2nd line 4th row
+ 225   1      delay(msec);
+ 226   1      lcd_data_int(vote_2);
+ 227   1      delay(msec);
+ 228   1      lcd_cmd(0xC8);                      // 2nd line 8th row
+ 229   1      delay(msec);
+ 230   1      lcd_data_int(vote_3);
+ 231   1      delay(msec);
+ 232   1      lcd_cmd(0xCC);                   // 2nd line 12th row
+ 233   1      delay(msec);
+ 234   1      lcd_data_int(vote_4);
+ 235   1      delay(300);
+ 236   1      
+ 237   1      arr[0] = vote_1;                      //arry ofsize 4
+ 238   1      arr[1] = vote_2;
+ 239   1      arr[2] = vote_3;
+ 240   1      arr[3] = vote_4;
+C51 COMPILER V9.60.0.0   MPLABPROJECT                                                      06/10/2022 09:27:19 PAGE 5   
+
+ 241   1      
+ 242   1      for( i=0; i<4; i++)
+ 243   1      {
+ 244   2      if(arr[i]>=max)
+ 245   2      max = arr[i];
+ 246   2      }
+ 247   1      
+ 248   1      if ( (vote_1 == max) && ( vote_2 != max) && (vote_3 != max)&& (vote_4 != max) )
+ 249   1      {
+ 250   2      
+ 251   2      carry = 1;
+ 252   2      lcd_cmd(0x01);            //clear lcd
+ 253   2      delay(msec);
+ 254   2      lcd_cmd(0x80);              //cursor position to 0 of line 1
+ 255   2      delay(msec);
+ 256   2      lcd_data_str("congratulations");
+ 257   2      delay(50);
+ 258   2      lcd_cmd(0xC4);        //jump to 2nd line 4th col
+ 259   2      delay(msec);
+ 260   2      lcd_data_str("A");
+ 261   2      delay(msec);
+ 262   2      lcd_cmd(0x14);               //space
+ 263   2      delay(msec);
+ 264   2      lcd_data_str("wins");
+ 265   2      delay(msec);
+ 266   2      }
+ 267   1      
+ 268   1      if ( (vote_2 == max) && ( vote_1 != max) && (vote_3 != max)&& (vote_4 != max) )
+ 269   1      {
+ 270   2      carry = 1;
+ 271   2      lcd_cmd(0x01);     //clear lcd
+ 272   2      delay(msec);
+ 273   2      lcd_cmd(0x80);           //cursor position to 0 of line 1
+ 274   2      delay(msec);
+ 275   2      lcd_data_str("congratulations");
+ 276   2      delay(50);
+ 277   2      lcd_cmd(0xC4);                               //jump to 2nd line 4th col
+ 278   2      delay(msec);
+ 279   2      lcd_data_str("B");
+ 280   2      delay(msec);
+ 281   2      lcd_cmd(0x14);                 //space
+ 282   2      delay(msec);
+ 283   2      lcd_data_str("wins");
+ 284   2      delay(msec);
+ 285   2      }
+ 286   1      
+ 287   1      if ( (vote_3 == max) && ( vote_2 != max) && (vote_1 != max)&& (vote_4 != max) )
+ 288   1      {
+ 289   2      carry = 1;
+ 290   2      lcd_cmd(0x01);               //clear lcd
+ 291   2      delay(msec);
+ 292   2      lcd_cmd(0x80);                         //cursor position to 0 of line 1
+ 293   2      delay(msec);
+ 294   2      lcd_data_str("congratulations");
+ 295   2      delay(50);
+ 296   2      lcd_cmd(0xC4);                           ////jump to 2nd line 4th col
+ 297   2      delay(msec);
+ 298   2      lcd_data_str("C");
+ 299   2      delay(msec);
+ 300   2      lcd_cmd(0x14);                  //space
+ 301   2      delay(msec);
+ 302   2      lcd_data_str("wins");
+C51 COMPILER V9.60.0.0   MPLABPROJECT                                                      06/10/2022 09:27:19 PAGE 6   
+
+ 303   2      delay(msec);
+ 304   2      }
+ 305   1      
+ 306   1      if ( (vote_4 == max) && ( vote_2 != max) && (vote_3 != max)&& (vote_1 != max) )
+ 307   1      {
+ 308   2      carry = 1;
+ 309   2      lcd_cmd(0x01);     //clear lcd
+ 310   2      delay(msec);
+ 311   2      lcd_cmd(0x80);                          //cursor position to 0 of line 1
+ 312   2      delay(msec);
+ 313   2      lcd_data_str("congratulations");
+ 314   2      delay(50);
+ 315   2      lcd_cmd(0xC4);                      //jump to 2nd line 4th col
+ 316   2      delay(msec);
+ 317   2      lcd_data_str("D");
+ 318   2      delay(msec);
+ 319   2      lcd_cmd(0x14);                  //space
+ 320   2      delay(msec);
+ 321   2      lcd_data_str("wins");
+ 322   2      delay(msec);
+ 323   2      }
+ 324   1      
+ 325   1      if (carry==0)
+ 326   1      
+ 327   1      {
+ 328   2      lcd_cmd(0x01);                 //clear lcd
+ 329   2      delay(msec);
+ 330   2      lcd_cmd(0x82);                //ist line 2nd col
+ 331   2      delay(msec);
+ 332   2      lcd_data_str("clash");
+ 333   2      delay(50);
+ 334   2      lcd_cmd(0x14);               //space
+ 335   2      delay(msec); 
+ 336   2      lcd_data_str("between");
+ 337   2      delay(50);
+ 338   2      if(vote_1 == max)
+ 339   2      {
+ 340   3      lcd_cmd(0xC2);              //2nd line 2nd col           
+ 341   3      lcd_data_str("A");
+ 342   3      delay(50);
+ 343   3      }
+ 344   2      if(vote_2 == max)
+ 345   2      {
+ 346   3      lcd_cmd(0xC5);                  //2nd line 5th col
+ 347   3      lcd_data_str("B");                    
+ 348   3      delay(50);
+ 349   3      }
+ 350   2      if(vote_3 == max)
+ 351   2      {
+ 352   3      lcd_cmd(0xC9);                      //2nd line 9th col  
+ 353   3      lcd_data_str("C");
+ 354   3      delay(50);
+ 355   3      }
+ 356   2      if(vote_4 == max)
+ 357   2      {
+ 358   3      lcd_cmd(0xCD);                          //2nd line 12th col  
+ 359   3      lcd_data_str("D");
+ 360   3      delay(50);
+ 361   3      }
+ 362   2      }
+ 363   1      }
+ 364          
+C51 COMPILER V9.60.0.0   MPLABPROJECT                                                      06/10/2022 09:27:19 PAGE 7   
+
+ 365          void main()
+ 366          {
+ 367   1      ini_pin = stop_pin = 1;
+ 368   1      vote_1 = vote_2 = vote_3 = vote_4 = 0;
+ 369   1      candidate_1 = candidate_2 = candidate_3 = candidate_4 = 0;
+ 370   1      lcd_cmd(0x38);               //5x7 matrix 2 lines
+ 371   1      delay(msec);
+ 372   1      lcd_cmd(0x0E);               //cursor on
+ 373   1      delay(msec);
+ 374   1      lcd_cmd(0x01);                 //clear lcd
+ 375   1      delay(msec);
+ 376   1      lcd_cmd(0x80);              //cursor to fisrt pos
+ 377   1      delay(msec);
+ 378   1      lcd_data_str( "press b1" );
+ 379   1      delay(msec);
+ 380   1      lcd_cmd(0x14);               //sapce
+ 381   1      delay(msec);
+ 382   1      lcd_data_str("to");
+ 383   1      delay(msec);
+ 384   1      lcd_cmd(0xC0);                 // second line
+ 385   1      delay(msec);
+ 386   1      lcd_data_str("start");
+ 387   1      delay(100);
+ 388   1      while(1)
+ 389   1      {
+ 390   2      while(ini_pin != 0)
+ 391   2      {
+ 392   3      if (stop_pin == 0)
+ 393   3      break;
+ 394   3      }
+ 395   2      if (stop_pin == 0)            //result pin
+ 396   2      {
+ 397   3      break;
+ 398   3      }
+ 399   2      lcd_ini();
+ 400   2      }
+ 401   1      
+ 402   1      while(1)
+ 403   1      {
+ 404   2      results();
+ 405   2      }
+ 406   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1434    ----
+   CONSTANT SIZE    =    123    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     28       5
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
