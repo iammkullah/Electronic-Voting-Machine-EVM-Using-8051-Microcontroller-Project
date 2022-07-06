@@ -1,0 +1,218 @@
+\chapter{Literature Review}
+\label{chap2}
+
+In the chapter 1 we have given the introduction of our project, objectives and a thesis break down. Our introduction chapter is giving a complete overview of this project report. This chapter is about the work which is already been done on Electronic Voting Machine and will give a brief details about the articles, papers and literature review.
+
+\section{Literature Review}
+Researchers in the electronic voting field have already reached a consensus pack of following core properties that an electronic voting system
+should have\cite{kumar2012electronic}:
+\subsection{Accuracy}
+\begin{enumerate}
+\item It is not possible for a vote to be altered.
+%
+\item It is not possible for a validated vote to be eliminated from the final tally.
+%
+\item It is not possible for an invalid vote to be counted in the final tally.
+%
+%
+\end{enumerate}
+\subsection{Democracy}
+\begin{enumerate}
+\item It permits only eligible voters to vote.
+%
+\item It ensures that eligible voters vote only once.
+%
+\end{enumerate}
+\subsection{Privacy}
+\begin{enumerate}
+\item Neither authorities nor anyone else can link any ballot to the voter who cast it.
+%
+\item No voter can prove that he voted in a particular way.
+%
+\end{enumerate}
+\subsection{Verifiability}
+\begin{enumerate}
+\item Anyone can independently verify that all votes have been counted correctly.
+
+\end{enumerate}
+\subsection{Availability}
+\begin{enumerate}
+\item The system works properly as long as the poll stands
+
+\item Any voter can have access to it from the beginning to the end of the poll.
+
+\end{enumerate}
+\subsection{Resume Ability}
+\begin{enumerate}
+\item The system works properly as long as the poll stands
+
+\item the system allows any voter who had interrupted his/her voting process to resume it or restart it
+while the poll stands.
+
+\end{enumerate}
+
+Following are some of the features which are already been used.
+\begin{itemize}
+\item There are no external communication paths hence it is difficult for the hackers to hack the machine and tamper the count numbers, in most of the advanced version of electronic voting machines.
+%
+\item Electronic voting machines with touch base screen are proven to be advantageous for the physically challenged people. In a paper ballot, these physically challenged people were not able to cast their votes in private. However, with the new EVM in place, even handicapped people can use their right to vote in private.
+%
+\item Electronic voting machines are cost effective and economical. In the paper ballot, the amount of raw material used is higher. It directly impacts the environment as paper ballot uses papers to cast votes. However, the cost associated with holding elections with EVMs is considered to be negligible.
+%
+\item One of the advantages of the electronic voting machine
+is to save the time. EVM machines can cast and count the votes within very less time.
+%
+\item Bogus voting can be avoided through electronic voting machines hence are quite effective against the bogus votes. Electronic voting machines are programmed to capture a maximum of five votes in a minute, due to which a single vote cannot cast fake votes. In advanced electronic voting machines, a sound of beep comes after one casts their vote which lets the officer on duty know that the vote has been cast by an individual.
+Electronic voting machines are designed in a way that they keep a track of number and details of votes recorded. The election commission can even save the data for a longer period of time which might be helpful for referencing in future.
+%
+\item Electronic voting machines are easier to carry and transport from one place to another without any hassle. One single machine can record several votes captured through that machine. Few electronic voting machines also come with a voice support to assist the visually impaired voter. In such cases, the visually challenged person can cast their vote without any problem.
+\item One can see all the symbols and names in electronic voting machines of the candidates together which makes it easier for the voter to choose among the many and cast their votes.
+%
+\end{itemize}
+
+\noident Following are the claims which are kind of limitation of Electronic Voting Machine(EVM)\cite{nikamcritical}.
+\begin{enumerate}
+\item With recent elections in the United States, many software programmers have claimed that the electronic voting machines are vulnerable to malicious programming and if it gets affected then any hacker can hack the machine and can tamper the vote counts easily.
+%
+\item The touch base screen is not efficient enough to capture the vote accurately for many physically challenged people as they have complained that. Therefore sometimes it leads to the voter ending up voting for someone else unintentionally.
+%
+\item Although it takes the time to count votes that were captured using paper ballot but people fully trust the process as high technology are also vulnerable to hackers attack.
+%
+\item The electronic voting machines which were used during the elections are susceptible to damage which will result in loss of data. Therefore biggest change with technology is that no matter how much data it records but a single virus can destroy the entire data storage.
+%
+\item The highly humid area and those areas which receive frequent rainfall are not suitable for casting votes using electronic voting machines. As machines are prone to damage due to high humidity level thus usage of electronic voting machines are not advisable in such areas.
+%
+\item Most of the electronic voting machines used in the country were foreign manufactured, which means the secret codes that control the electronic voting machines are in foreign hands and they can be used to influence the election results.
+%
+\item Fake display units could be installed in the electronic voting machines which would show manipulated
+numbers but originally fake votes could be generated from the back end. This process does not need any hacker
+to hack the software. Such fake display units are easily available in the market.
+%
+\item Most of the electronic voting machines used in the country do not have any mechanism by which the voter can verify their identity before casting the vote due to which fake voters can cast numerous fake votes.
+
+\end{enumerate}
+
+It is concluded that voting through electronic voting machine is need of time as all developed countries are making use of it. Researchers have been suggested an algorithm and are of opined that if suggested algorithm is strictly followed then there will not be any error in electronic voting procedure, and we will tackle all the mentioned above problems/issues\cite{nikamcritical}.
+
+
+
+
+
+
+%\begin{table}[H]
+%%\large
+%\centering
+%\caption{Consolidated Comparison of all the Systems}
+%\label{tab2}
+%%begin{adjustwidth}{-2.25in}{Oin}
+%
+%\begin{tabular}{|c|c|c|c|c|c|}
+%\hline  %make a line
+%Technology Used&Cost&Feasibility&Reliability&Communication Protocol\\
+%\hline %make a line
+%GSM&Low&Most Feasible&High&Stable\\
+%\hline
+%ZigBee&Medium&Small Scale&Low&Least Stable\\
+%\hline
+%SCADA&High&Not Feasible&High&Stable\\
+%\hline
+%PLC&Low&Least Feasible&Low&Very Stable\\
+%\hline
+%WiMAX&Medium&Small Scale&Medium&Stable\\
+%\hline
+%Mixed&Varies&Feasible&Varies&Varies\\
+%\hline
+%\end{tabular}
+%\end{table}
+%
+%\small
+%\begin{table}[H]
+%\caption{Literature Review}
+%\label{tab3}
+%\centering
+%\begin{tabularx}{1\linewidth}{X X X X}
+%\toprule
+% Paper Reference & Approach & Technology & Accuracy ($\%$) \\
+%\toprule
+%\cite{khan2020cost}&Cost Benefit Based Analytical Study of AMR and Blind Meter Reading (BMR) used by PESCO(WAPDA)& AMR and BMR &The Blind Meter Reading has internal financial return of about 84 percent while in case of AMR it is 15 percent.\\
+%%\toprule
+%\hline  %make a line
+%\cite{zhao2005research} & Remote Meter Automatic Reading
+%Based on Computer Vision & Computer vision techniques & $78\%$\\
+%\hline %make a line
+%\cite{li2019light} & Light-Weight Spliced Convolution Network-Based
+%Automatic Water Meter Reading in Smart City & Network-Based
+%Automatic Water Meter Reading & $85.66\%$ \\
+%%\toprule
+%\hline  %make a line
+%\cite{dong2010design} & Wireless AMR System Based on SOPC & SOPC & $59.6\%$ \\
+%\hline  %make a line
+%\cite{ando2002automatic} & AMR system adopting automatic routing technology & routing technology & $68\%$ \\
+%\hline  %make a line
+%\cite{wiratama2018gas} & Gas
+%billing system based on AMR on diaphragm gas meter with email
+%notification & GSM or
+%GPRS networks & $79\%$\\
+%\hline  %make a line
+%\cite{ashna2013gsm} & GSM based automatic AMR system with instant billing & GSM & $88\%$\\
+%\hline  %make a line
+%\cite{shuo2019digital} & Digital recognition of electric meter with deep learning & Deep Learning Methods & $78\%$\\
+%\hline  %make a line
+%\end{tabularx}
+%\end{table}
+%\small
+%\begin{table}[H]
+%\caption{-- continued from previous Literature Review table \ref{tab3}}
+%\label{tab4}
+%\centering
+%\begin{tabularx}{1\linewidth}{X X X X}
+%\toprule
+% Paper Reference & Approach & Technology & Accuracy ($\%$) \\
+%\toprule
+%
+%\cite{kulkarni2012gsm} &GSM based AMR system using ARM controller & ARM Controller & $81\%$\\
+%\hline  %make a line
+%\cite{Ali2012} & Implementation of (AMR) using radio frequency (RF) module & Radio Frequency & $58\%$\\
+%\hline  %make a line
+%\cite{palaniappan2015automated} & Comparison between different technologies being used in ARM  & GSM, Zigbee, SCADA System, Power Line Communication, WiMAX Technology,  & GSM = $88\%$, Zigbee = $67\%$,SCADA = $63\%$,Power Line = $71\%$,WiMAX = $62\%$,  \\
+%\hline %make a line
+%\cite{quan2010design} & Design of remote automatic meter reading system based on ZigBee and GPRS & ZigBee and GPRS techniques & $67\%$\\
+%\hline  %make a line
+%\cite{arun2012design} & Design and implementation of AMR system using GSM, ZIGBEE through GPRS & using GSM, ZIGBEE through GPRS & $89\%$\\
+%\hline  %make a line
+%\cite{rouf2012neighborhood} & Security and privacy analysis of automatic meter reading systems & Analysises of AMR & -\\
+%\hline  %make a line
+%\cite{malhotra2013automatic} & AMR and theft control system by using GSM & GSM & $84\%$\\
+%\hline  %make a line
+%\cite{tan2007automatic} & Automatic power meter reading system using GSM network & GSM network  & $78\%$\\
+%\hline  %make a line
+%\cite{Jamil2008} & Design and implementation of a wireless AMR system & GSM Network & $86\%$\\
+%\hline  %make a line
+%\cite{yuan2011remote} & Remote wireless AMR system based on GPRS & GPRS & $88\%$\\
+%\hline  %make a line
+%\cite{borle2013automatic} & AMR for electricity using power line communication & power line communication & $65\%$\\
+%\hline  %make a line
+%\end{tabularx}
+%\end{table}
+%\small
+%\begin{table}[H]
+%\caption{-- continued from previous Literature Review table \ref{tab4}}
+%\label{tab5}
+%\centering
+%\begin{tabularx}{1\linewidth}{X X X X}
+%\toprule
+% Paper Reference & Approach & Technology & Accuracy ($\%$) \\
+%\toprule
+%\cite{mlakic2017designing} & Designing AMR system using open source hardware and software &open source hardware and software & $59\%$\\
+%\hline  %make a line
+%\cite{khalifa2010survey} & A survey of communication protocols for auto-
+%matic meter reading applications, & Communication Protocols & - \\
+%\hline
+%\bottomrule
+%\end{tabularx}
+%\end{table}
+
+%\section{Concluding Remarks}
+%In this chapter, we have given a overall review about the literature related to Speech Processing Using MATLAB. MATLAB is a programming and numeric computing platform used by millions of engineers and scientists to analyze data, develop algorithms, and create models.\\\\
+%In the chapter 3 we will proposed methodology which we will use for our project with block diagrams, flowcharts, Mathematical Modeling, escudo code and component selection related to the hardware and software.
+

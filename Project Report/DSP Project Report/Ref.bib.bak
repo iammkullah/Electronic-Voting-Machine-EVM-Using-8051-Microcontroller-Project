@@ -1,0 +1,41 @@
+% This file was created with JabRef 2.7.
+% Encoding: Cp1252
+
+@INPROCEEDINGS{kohno2004analysis,
+  author = {Kohno, Tadayoshi and Stubblefield, Adam and Rubin, Aviel D and Wallach,
+	Dan S},
+  title = {Analysis of an electronic voting system},
+  booktitle = {IEEE Symposium on Security and Privacy, 2004. Proceedings. 2004},
+  year = {2004},
+  pages = {27--40},
+  organization = {IEEE}
+}
+
+@INPROCEEDINGS{kumar2012electronic,
+  author = {Kumar, D Ashok and Begum, T Ummal Sariba},
+  title = {Electronic voting machine—A review},
+  booktitle = {International Conference on Pattern Recognition, Informatics and
+	Medical Engineering (PRIME-2012)},
+  year = {2012},
+  pages = {41--48},
+  organization = {IEEE}
+}
+
+@ARTICLE{nikamcritical,
+  author = {Nikam, D and Shetiye, D and Bhoite, D},
+  title = {A critical study of electronic voting machine evm utilization in
+	election procedure},
+  journal = {International Journal of Trend in Scientific Research and Development},
+  pages = {1--3}
+}
+
+@comment{jabref-meta: selector_keywords:}
+
+@comment{jabref-meta: selector_journal:}
+
+@comment{jabref-meta: selector_publisher:}
+
+@comment{jabref-meta: selector_author:}
+
+@comment{jabref-meta: selector_review:}
+
